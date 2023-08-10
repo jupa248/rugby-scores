@@ -1,0 +1,77 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  background-color: lightgray;
+  margin: 1rem 0;
+  color: #000;
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-flag {
+  width: 3.5rem;
+  height: 3.5rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.spain {
+  background-image: url(../assets/flags/spain.svg);
+}
+.italy {
+  background-image: url(../assets/flags/italy.svg);
+}
+.france {
+  background-image: url(../assets/flags/france.svg);
+}
+.argentina {
+  background-image: url(../assets/flags/argentina.svg);
+}
+.new-zealand {
+  background-image: url(../assets/flags/new-zealand.svg);
+}
+.england {
+  background-image: url(../assets/flags/england.svg);
+}
+.portugal {
+  background-image: url(../assets/flags/portugal.svg);
+}
+.south-africa {
+  background-image: url(../assets/flags/south-africa.svg);
+}
+.scotland {
+  background-image: url(../assets/flags/scotland.svg);
+}
+.samoa {
+  background-image: url(../assets/flags/samoa.svg);
+}
+.romania {
+  background-image: url(../assets/flags/romania.svg);
+}
+.namibia {
+  background-image: url(../assets/flags/namibia.svg);
+}
+.japan {
+  background-image: url(../assets/flags/japan.svg);
+}
+.ireland {
+  background-image: url(../assets/flags/ireland.svg);
+}
+.georgia {
+  background-image: url(../assets/flags/georgia.svg);
+}
+.chile {
+  background-image: url(../assets/flags/chile.svg);
+}

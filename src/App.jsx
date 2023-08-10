@@ -4,20 +4,35 @@ import { dummyFixture } from './data/dummy-data';
 import { FIXTURES_URL } from './Models/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getScoresData } from './store/scores-actions';
+import { getFixtureData } from './store/fixture-actions';
 import Predictions from './components/Predictions';
 import './App.css';
+import MatchCard from './components/matchCard';
 
 function App() {
   const dispatch = useDispatch();
-  const scores = useSelector((state) => state.scores.scores);
+  const matches = useSelector(
+    (state) => state.fixture.fixture['-NbVCnQ756rEH1sTMWkk'],
+  );
   useEffect(() => {
-    dispatch(getScoresData()); // Fetch scores data when the app starts
+    dispatch(getFixtureData());
   }, [dispatch]);
 
-  // console.log('scores', scores);
+  const postData = async (data) => {
+    const response = await axios.post(FIXTURES_URL, data);
+    if (response.statusText !== 'OK') {
+      throw new Error('Could not add new data!');
+    }
+    console.log(response);
+  };
+  // postData(dummyFixture);
+  console.log(matches);
   return (
     <>
-      <Predictions />
+      <div>
+        {matches &&
+          matches.map((match) => <MatchCard key={match.id} match={match} />)}
+      </div>
     </>
   );
 }
