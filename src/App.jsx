@@ -8,6 +8,7 @@ import { getFixtureData } from './store/fixture-actions';
 import Predictions from './components/Predictions';
 import './App.css';
 import MatchCard from './components/matchCard';
+import Register from './components/Register';
 
 function App() {
   const dispatch = useDispatch();
@@ -18,21 +19,22 @@ function App() {
     dispatch(getFixtureData());
   }, [dispatch]);
 
-  const postData = async (data) => {
-    const response = await axios.post(FIXTURES_URL, data);
-    if (response.statusText !== 'OK') {
-      throw new Error('Could not add new data!');
-    }
-    console.log(response);
-  };
+  // const postData = async (data) => {
+  //   const response = await axios.post(FIXTURES_URL, data);
+  //   if (response.statusText !== 'OK') {
+  //     throw new Error('Could not add new data!');
+  //   }
+  //   console.log(response);
+  // };
   // postData(dummyFixture);
-  console.log(matches);
+
   return (
     <>
-      <div>
+      {/* <div>
         {matches &&
           matches.map((match) => <MatchCard key={match.id} match={match} />)}
-      </div>
+      </div> */}
+      <Register />
     </>
   );
 }
