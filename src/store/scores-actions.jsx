@@ -1,5 +1,5 @@
 import { scoresActions } from './scores-slice';
-import { SCORES_URL } from '../Models/config';
+import { SCORES_URL, USER_URL } from '../Models/config';
 import axios from 'axios';
 
 export const getScoresData = () => {
@@ -12,7 +12,6 @@ export const getScoresData = () => {
         throw new Error('Could not get scores data!');
       }
 
-      console.log('Fetched scores data:', response.data);
       dispatch(scoresActions.getScores(response.data)); // Dispatch the action with fetched data
     } catch (error) {
       console.error('Error fetching scores:', error);
@@ -23,16 +22,20 @@ export const getScoresData = () => {
 export const addNewScore = (newScoreData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(SCORES_URL, newScoreData);
-      if (response.statusText !== 'OK') {
-        throw new Error('Could not add new score!');
-      }
+      // const response = await axios.post(SCORES_URL, newScoreData);
+      // if (response.statusText !== 'OK') {
+      //   throw new Error('Could not add new score!');
+      // }
 
-      console.log('response.config.data:', response.config.data);
-      const addedScore = JSON.parse(response.config.data);
-      console.log('addedScore:', addedScore);
-      await dispatch(scoresActions.addScore(addedScore));
-      console.log('after dispatch addScore');
+      // const addedScore = JSON.parse(response.config.data);
+      // await dispatch(scoresActions.addScore(addedScore));
+      const response = await axios.put(SCORES_URL, newScoreData);
+      console.log('scores:', newScoreData);
+
+      if (response.statusText !== 'OK') {
+        throw new Error('Sending cart data failed.');
+      }
+      console.log(response);
     } catch (error) {
       console.error('Error adding new score', error);
     }

@@ -13,9 +13,7 @@ const scoresSlice = createSlice({
     },
     addScore(state, action) {
       const newScore = action.payload;
-      console.log('hi addScore!');
       state.scores.push(newScore);
-      console.log('hi final addScore!');
     },
   },
 });

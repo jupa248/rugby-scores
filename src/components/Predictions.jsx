@@ -8,7 +8,6 @@ const Predictions = () => {
   const scores = useSelector((state) => state.scores.scores);
 
   const [newScore, setNewScore] = useState({
-    id: 0,
     winner: '',
     homeScore: 0,
     awayScore: 0,

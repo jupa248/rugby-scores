@@ -4,11 +4,11 @@ import { dummyFixture } from './data/dummy-data';
 import { FIXTURES_URL } from './Models/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { getScoresData } from './store/scores-actions';
+import { getUserData } from './store/user-actions';
 import { getFixtureData } from './store/fixture-actions';
 import Predictions from './components/Predictions';
 import './App.css';
 import MatchCard from './components/matchCard';
-import Register from './components/Register';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +16,8 @@ function App() {
     (state) => state.fixture.fixture['-NbVCnQ756rEH1sTMWkk'],
   );
   useEffect(() => {
-    dispatch(getFixtureData());
+    // dispatch(getFixtureData());
+    dispatch(getUserData());
   }, [dispatch]);
 
   // const postData = async (data) => {
@@ -34,7 +35,7 @@ function App() {
         {matches &&
           matches.map((match) => <MatchCard key={match.id} match={match} />)}
       </div> */}
-      <Register />
+      <Predictions />
     </>
   );
 }
