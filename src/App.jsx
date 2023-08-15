@@ -8,34 +8,55 @@ import { getUserData } from './store/user-actions';
 import { getFixtureData } from './store/fixture-actions';
 import Predictions from './components/Predictions';
 import './App.css';
-import MatchCard from './components/matchCard';
+import MatchCard from './components/MatchCard';
+import NavBar from './components/NavBar';
+import Popup from './components/UI/Popup';
+import Login from './components/Login';
+import { popupActions } from './store/popup-slice';
 
 function App() {
   const dispatch = useDispatch();
-  const matches = useSelector(
-    (state) => state.fixture.fixture['-NbVCnQ756rEH1sTMWkk'],
-  );
+  const matches = useSelector((state) => state.fixture.fixture);
+  const showPopup = useSelector((state) => state.popup.showPopup);
+  const users = useSelector((state) => state.user);
+  const scores = useSelector((state) => state.scores);
+  const userLogged = localStorage.getItem('user');
   useEffect(() => {
-    // dispatch(getFixtureData());
+    dispatch(getFixtureData());
     dispatch(getUserData());
-  }, [dispatch]);
+    dispatch(getScoresData());
+    if (!userLogged) {
+      const timer = setTimeout(() => {
+        dispatch(popupActions.togglePopup(false));
+      }, 3000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [dispatch, userLogged]);
 
-  // const postData = async (data) => {
-  //   const response = await axios.post(FIXTURES_URL, data);
-  //   if (response.statusText !== 'OK') {
-  //     throw new Error('Could not add new data!');
-  //   }
-  //   console.log(response);
-  // };
-  // postData(dummyFixture);
+  console.log(showPopup);
+  const scoresArray = Object.values(scores.scores);
+  const usersArray = Object.values(users.user);
+
+  // if (!userLogged) {
+  //   dispatch(popupActions.togglePopup(false));
+  // }
+
+  // console.log(scoresArray);
+  // scoresArray.map((score) => console.log(score));
 
   return (
     <>
-      {/* <div>
+      <NavBar />
+
+      {/* {showPopup && <Popup />} */}
+      <div>
         {matches &&
           matches.map((match) => <MatchCard key={match.id} match={match} />)}
-      </div> */}
-      <Predictions />
+      </div>
+      {showPopup && <Login users={usersArray} />}
+      {/* <Predictions /> */}
     </>
   );
 }
@@ -46,3 +67,11 @@ export default App;
 // const matches = dummyFixture.filter(
 //   (match) => match.date.split('T')[0] === todaysDate,
 // );
+// const postData = async (data) => {
+//   const response = await axios.put(FIXTURES_URL, data);
+//   if (response.statusText !== 'OK') {
+//     throw new Error('Could not add new data!');
+//   }
+//   console.log(response);
+// };
+// postData(dummyFixture);

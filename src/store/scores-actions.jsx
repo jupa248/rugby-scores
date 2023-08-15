@@ -28,14 +28,12 @@ export const addNewScore = (newScoreData) => {
       // }
 
       // const addedScore = JSON.parse(response.config.data);
-      // await dispatch(scoresActions.addScore(addedScore));
-      const response = await axios.put(SCORES_URL, newScoreData);
-      console.log('scores:', newScoreData);
+      const response = await axios.post(SCORES_URL, newScoreData);
 
       if (response.statusText !== 'OK') {
         throw new Error('Sending cart data failed.');
       }
-      console.log(response);
+      // await dispatch(scoresActions.addScore(response.data));
     } catch (error) {
       console.error('Error adding new score', error);
     }

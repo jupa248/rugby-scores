@@ -13,8 +13,8 @@ const Predictions = () => {
     awayScore: 0,
   });
 
-  const handleScoreSubmit = async () => {
-    // await dispatch(scoresActions.addScore(newScore));
+  const handleScoreSubmit = async (e) => {
+    e.preventDefault();
     await dispatch(addNewScore(newScore));
     setNewScore(newScore);
     console.log('newScore', newScore);

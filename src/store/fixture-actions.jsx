@@ -12,7 +12,6 @@ export const getFixtureData = () => {
         throw new Error('Could not get fixture data!');
       }
 
-      console.log('Fetched fixture data:', response.data);
       dispatch(fixtureActions.getFixture(response.data)); // Dispatch the action with fetched data
     } catch (error) {
       console.error('Error fetching fixture:', error);
