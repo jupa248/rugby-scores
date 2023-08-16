@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   scores: [],
-  scoresView: false,
 };
 
 const scoresSlice = createSlice({
@@ -16,7 +15,6 @@ const scoresSlice = createSlice({
       const newScore = action.payload;
       console.log(newScore.winner);
       state.scores.push(newScore);
-      state.scoresView = true;
     },
   },
 });

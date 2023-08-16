@@ -2,28 +2,30 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewScore } from '../store/scores-actions';
 import { scoresActions } from '../store/scores-slice';
+import Modal from './UI/Modal';
+import { popupActions } from '../store/popup-slice';
+import PredictionPopup from './PredictionPopup';
 
-const Predictions = () => {
+const Predictions = ({ props }) => {
   const dispatch = useDispatch();
-  const scores = useSelector((state) => state.scores.scores);
 
-  const [newScore, setNewScore] = useState({
-    winner: '',
-    homeScore: 0,
-    awayScore: 0,
-  });
-
-  const handleScoreSubmit = async (e) => {
-    e.preventDefault();
-    await dispatch(addNewScore(newScore));
-    setNewScore(newScore);
-    console.log('newScore', newScore);
+  const handlePredictionPopup = (props) => {
+    dispatch(popupActions.togglePrediction(props));
   };
 
   return (
     <div>
       <h2>Add New Score</h2>
-      <input
+      <button onClick={() => handlePredictionPopup(props)}>
+        Predict score
+      </button>
+    </div>
+  );
+};
+export default Predictions;
+
+{
+  /* <input
         type="text"
         placeholder="Winner"
         value={newScore.winner}
@@ -45,8 +47,5 @@ const Predictions = () => {
           setNewScore({ ...newScore, awayScore: parseInt(e.target.value) })
         }
       />
-      <button onClick={handleScoreSubmit}>Add Score</button>
-    </div>
-  );
-};
-export default Predictions;
+      <button onClick={handleScoreSubmit}>Add Score</button> */
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Popup from './UI/Popup';
+import Modal from './UI/Modal';
 import { addNewUser } from '../store/user-actions';
 import { popupActions } from '../store/popup-slice';
 
@@ -24,22 +24,31 @@ const Login = (users) => {
     );
     if (match) {
       localStorage.setItem('user', JSON.stringify(match));
+      await dispatch(popupActions.togglePopup(false));
     } else {
-      dispatch(addNewUser(user));
+      await dispatch(addNewUser(user));
+      await localStorage.setItem('user', JSON.stringify(user))
+      await dispatch(popupActions.togglePopup(false));
     }
-    await dispatch(popupActions.togglePopup(false));
+  };
+
+  const toggleHandler = () => {
+    dispatch(popupActions.togglePopup());
   };
 
   return (
-    <Popup
-      type={'text'}
-      placeholder={'Username'}
-      value={user.username}
-      onChange={handleChange}
-      onClick={handleSubmit}
-      header={'Enter your name'}
-      btnText={'Apply'}
-    />
+    <Modal onClose={toggleHandler}>
+      <h2>Enter your name</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={user.username}
+          onChange={handleChange}
+        />
+      </form>
+      <button onClick={handleSubmit}>Apply</button>
+    </Modal>
   );
 };
 export default Login;

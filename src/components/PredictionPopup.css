@@ -1,0 +1,52 @@
+.form-container {
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 30vh;
+  font-size: 1.3rem;
+}
+
+.form-container > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1rem;
+  height: 3rem;
+}
+.form-container input {
+  /* display: flex; */
+  height: 90%;
+  border-radius: 10px;
+  border: 2px solid #2d3cff;
+  padding-left: 1rem;
+  /* font-size: 1rem; */
+}
+
+input[type='number'] {
+  width: 4rem;
+}
+
+.team {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.small-flag {
+  width: 2rem;
+  height: 2rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.add-btn {
+  border: none;
+  background-color: #2d3cff;
+  color: #fff;
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 5px;
+  font-size: 1.3rem;
+}

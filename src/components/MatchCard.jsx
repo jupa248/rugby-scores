@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import './MatchCard.css';
+import Predictions from './Predictions';
 
-const MatchCard = (match) => {
+const MatchCard = ({ props }) => {
   //   console.log(match);
   const { home, away, id, status, home_score, away_score, date, venue } =
-    match.match;
+    props.match;
 
+  const userData = props.userData;
   const event = new Date(date);
-
   const parseDate = event.toUTCString().split('2023')[0];
   const hour = event.getHours();
   const minutes = event.getMinutes();
@@ -46,6 +47,7 @@ const MatchCard = (match) => {
           <h3>{away}</h3>
         </div>
       </div>
+      <Predictions props={{ userData, id, home, away, status }} />
     </article>
   );
 };

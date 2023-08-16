@@ -10,21 +10,21 @@ import Predictions from './components/Predictions';
 import './App.css';
 import MatchCard from './components/MatchCard';
 import NavBar from './components/NavBar';
-import Popup from './components/UI/Popup';
 import Login from './components/Login';
 import { popupActions } from './store/popup-slice';
+import PredictionPopup from './components/PredictionPopup';
 
 function App() {
   const dispatch = useDispatch();
   const matches = useSelector((state) => state.fixture.fixture);
   const showPopup = useSelector((state) => state.popup.showPopup);
+  const showPrediction = useSelector((state) => state.popup.showPrediction);
+  const selectedMatch = useSelector((state) => state.popup.selectedMatch);
   const users = useSelector((state) => state.user);
   const scores = useSelector((state) => state.scores);
   const userLogged = localStorage.getItem('user');
+  const user = JSON.parse(userLogged);
   useEffect(() => {
-    dispatch(getFixtureData());
-    dispatch(getUserData());
-    dispatch(getScoresData());
     if (!userLogged) {
       const timer = setTimeout(() => {
         dispatch(popupActions.togglePopup(false));
@@ -33,30 +33,41 @@ function App() {
         clearTimeout(timer);
       };
     }
+    console.log('userLogged');
   }, [dispatch, userLogged]);
 
-  console.log(showPopup);
+  useEffect(() => {
+    dispatch(getFixtureData());
+    console.log('fixtures');
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getScoresData());
+    console.log('scores');
+  }, [dispatch]);
+
   const scoresArray = Object.values(scores.scores);
   const usersArray = Object.values(users.user);
+  const userData = JSON.parse(userLogged);
 
-  // if (!userLogged) {
-  //   dispatch(popupActions.togglePopup(false));
-  // }
-
-  // console.log(scoresArray);
   // scoresArray.map((score) => console.log(score));
-
+  // console.log(matches);
   return (
     <>
-      <NavBar />
+      <NavBar user={user} />
 
       {/* {showPopup && <Popup />} */}
       <div>
         {matches &&
-          matches.map((match) => <MatchCard key={match.id} match={match} />)}
+          matches.map((match) => (
+            <MatchCard key={match.id} props={{ match, userData }} />
+          ))}
       </div>
       {showPopup && <Login users={usersArray} />}
-      {/* <Predictions /> */}
+      {/* <Predictions userData={userData} /> */}
+      {showPrediction && selectedMatch && (
+        <PredictionPopup match={selectedMatch} />
+      )}
     </>
   );
 }

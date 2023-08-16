@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   showPopup: false,
+  showPrediction: false,
+  selectedMatch: [],
 };
 
 const popupSlice = createSlice({
@@ -10,6 +12,14 @@ const popupSlice = createSlice({
   reducers: {
     togglePopup(state) {
       state.showPopup = !state.showPopup;
+    },
+    togglePrediction(state, action) {
+      const match = action.payload;
+      state.showPrediction === false
+        ? state.selectedMatch.push(match)
+        : (state.selectedMatch = []);
+
+      state.showPrediction = !state.showPrediction;
     },
   },
 });
