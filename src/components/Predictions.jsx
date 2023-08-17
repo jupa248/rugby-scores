@@ -8,6 +8,9 @@ import PredictionPopup from './PredictionPopup';
 
 const Predictions = ({ props }) => {
   const dispatch = useDispatch();
+  const scores = useSelector((state) => state.scores);
+  // const scoresArray = Object.values(scores.scores);
+  // console.log('scoresArray', scoresArray);
 
   const handlePredictionPopup = (props) => {
     dispatch(popupActions.togglePrediction(props));

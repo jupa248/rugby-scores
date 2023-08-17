@@ -13,6 +13,7 @@ import NavBar from './components/NavBar';
 import Login from './components/Login';
 import { popupActions } from './store/popup-slice';
 import PredictionPopup from './components/PredictionPopup';
+import { scoresActions } from './store/scores-slice';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ function App() {
   const scores = useSelector((state) => state.scores);
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged);
+  const scoreAdded = useSelector((state) => state.scores.scoreAdded);
+
   useEffect(() => {
     if (!userLogged) {
       const timer = setTimeout(() => {
@@ -43,15 +46,14 @@ function App() {
 
   useEffect(() => {
     dispatch(getScoresData());
-    console.log('scores');
   }, [dispatch]);
 
   const scoresArray = Object.values(scores.scores);
   const usersArray = Object.values(users.user);
   const userData = JSON.parse(userLogged);
 
-  // scoresArray.map((score) => console.log(score));
-  // console.log(matches);
+  // console.log('scores', scores);
+
   return (
     <>
       <NavBar user={user} />

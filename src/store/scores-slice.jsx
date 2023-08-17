@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  scores: [],
+  scores: {},
 };
 
 const scoresSlice = createSlice({
@@ -12,8 +12,11 @@ const scoresSlice = createSlice({
       state.scores = action.payload;
     },
     addScore(state, action) {
-      const newScore = action.payload;
-      state.scores.push(newScore);
+      const { newScoreId, newScoreData } = action.payload;
+      state.scores = { ...state.scores, [newScoreId]: newScoreData };
+    },
+    newScore(state) {
+      state.scoreAdded = !state.scoreAdded;
     },
   },
 });

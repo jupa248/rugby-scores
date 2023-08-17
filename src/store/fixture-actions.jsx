@@ -12,7 +12,7 @@ export const getFixtureData = () => {
         throw new Error('Could not get fixture data!');
       }
 
-      dispatch(fixtureActions.getFixture(response.data)); // Dispatch the action with fetched data
+      dispatch(fixtureActions.getFixture(response.data));
     } catch (error) {
       console.error('Error fetching fixture:', error);
     }

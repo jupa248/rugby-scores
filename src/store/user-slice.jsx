@@ -12,7 +12,7 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     addUser(state, action) {
-      const newUser = action.payload;
+      const newUser = action.payload.scores;
       state.user.push(newUser);
     },
   },

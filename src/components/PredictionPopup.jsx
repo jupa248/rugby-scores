@@ -4,12 +4,13 @@ import Modal from './UI/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { popupActions } from '../store/popup-slice';
 import { addNewScore } from '../store/scores-actions';
+import { scoresActions } from '../store/scores-slice';
 
 const PredictionPopup = (match) => {
   const dispatch = useDispatch();
   const { away, home, id, status } = match.match[0];
   const { userId, username } = match.match[0].userData;
-  const [result, setResult] = useState('winner')
+  const [result, setResult] = useState('winner');
   const [newScore, setNewScore] = useState({
     user: userId,
     scoreId: id,
@@ -21,7 +22,7 @@ const PredictionPopup = (match) => {
   useEffect(() => {
     handleResult();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newScore.homeScore, newScore.awayScore, result]);
 
   const handlePredictionPopup = () => {
@@ -30,34 +31,29 @@ const PredictionPopup = (match) => {
 
   const handleResult = async (e) => {
     if (newScore.homeScore > newScore.awayScore) {
-      setResult(home)
-      console.log('res>',result);
-
+      setResult(home);
+    } else if (newScore.homeScore < newScore.awayScore) {
+      setResult(away);
     }
-    else if (newScore.homeScore < newScore.awayScore) {
-      setResult(away)
-      console.log('res<',result);
-    }
-    if ((newScore.homeScore === newScore.awayScore)) {
-      setResult('Draw')
-      console.log('res=',result);
+    if (newScore.homeScore === newScore.awayScore) {
+      setResult('Draw');
     }
   };
 
-  const handleHomeChange = (value) => { 
-    // console.log('result', result);
-    // setNewScore({...newScore, winner: result })
-    setNewScore({...newScore, homeScore: parseInt(value)})
-   }
-  const handleAwayChange = (value) => { 
-    // console.log('result', result);
-     setNewScore({...newScore, awayScore: parseInt(value)})
-   }
+  const handleHomeChange = (value) => {
+    setNewScore({ ...newScore, homeScore: parseInt(value) });
+  };
+  const handleAwayChange = (value) => {
+    setNewScore({ ...newScore, awayScore: parseInt(value) });
+  };
   const handleScoreSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addNewScore({...newScore, winner: result}));
-    console.log(newScore);
-    dispatch(popupActions.togglePrediction(false))
+    console.log('newScore', newScore);
+    dispatch(addNewScore({ ...newScore, winner: result }));
+    // dispatch(scoresActions.addScore(newScore));
+
+    // dispatch(scoresActions.newScore(true));
+    dispatch(popupActions.togglePrediction(false));
   };
 
   return (
@@ -74,7 +70,7 @@ const PredictionPopup = (match) => {
             type="number"
             placeholder="Score"
             value={newScore.homeScore}
-            onChange={(e)=>handleHomeChange(e.target.value)}
+            onChange={(e) => handleHomeChange(e.target.value)}
           />
         </div>
         <div>
@@ -88,7 +84,7 @@ const PredictionPopup = (match) => {
             type="number"
             placeholder="Score"
             value={newScore.awayScore}
-            onChange={(e)=>handleAwayChange(e.target.value)}
+            onChange={(e) => handleAwayChange(e.target.value)}
           />
         </div>
         <div>
@@ -96,7 +92,7 @@ const PredictionPopup = (match) => {
           <input
             type="text"
             placeholder={result}
-            value={result === 'Draw' ? result :`${result} wins!`}
+            value={result === 'Draw' ? result : `${result} wins!`}
             readOnly
           />
         </div>

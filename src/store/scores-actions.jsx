@@ -22,18 +22,14 @@ export const getScoresData = () => {
 export const addNewScore = (newScoreData) => {
   return async (dispatch) => {
     try {
-      // const response = await axios.post(SCORES_URL, newScoreData);
-      // if (response.statusText !== 'OK') {
-      //   throw new Error('Could not add new score!');
-      // }
-
-      // const addedScore = JSON.parse(response.config.data);
       const response = await axios.post(SCORES_URL, newScoreData);
-
       if (response.statusText !== 'OK') {
         throw new Error('Sending cart data failed.');
       }
-      // await dispatch(scoresActions.addScore(response.data));
+      const newScoreId = response.data.name;
+      // console.log(newScoreData);
+
+      dispatch(scoresActions.addScore({ newScoreId, newScoreData }));
     } catch (error) {
       console.error('Error adding new score', error);
     }
