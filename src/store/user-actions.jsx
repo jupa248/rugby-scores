@@ -11,7 +11,7 @@ export const getUserData = () => {
         console.error('Failed to fetch user:', response.statusText);
         throw new Error('Could not get user data!');
       }
-      await dispatch(userActions.getUser(response.data));
+      await dispatch(userActions.getUser(response.data ?? 'NO USERS'));
     } catch (error) {
       console.error('Error fetching scores:', error);
     }

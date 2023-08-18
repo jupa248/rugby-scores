@@ -12,7 +12,7 @@ export const getScoresData = () => {
         throw new Error('Could not get scores data!');
       }
 
-      dispatch(scoresActions.getScores(response.data)); // Dispatch the action with fetched data
+      dispatch(scoresActions.getScores(response.data ?? 0));
     } catch (error) {
       console.error('Error fetching scores:', error);
     }

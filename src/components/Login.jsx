@@ -10,7 +10,7 @@ const Login = (users) => {
     username: '',
     userId: '',
   });
-  const usersList = users.users;
+  const usersList = users?.users;
   const id = Math.floor(Math.random() * 100);
 
   const handleChange = (e) => {
@@ -19,15 +19,16 @@ const Login = (users) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const match = await usersList.find(
-      (name) => name.username === user.username,
-    );
+    let match;
+    if (!!usersList[0].username) {
+      match = await usersList.find((name) => name.username === user.username);
+    }
     if (match) {
       localStorage.setItem('user', JSON.stringify(match));
       await dispatch(popupActions.togglePopup(false));
     } else {
       await dispatch(addNewUser(user));
-      await localStorage.setItem('user', JSON.stringify(user))
+      await localStorage.setItem('user', JSON.stringify(user));
       await dispatch(popupActions.togglePopup(false));
     }
   };

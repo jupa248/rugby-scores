@@ -4,11 +4,10 @@ import Modal from './UI/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { popupActions } from '../store/popup-slice';
 import { addNewScore } from '../store/scores-actions';
-import { scoresActions } from '../store/scores-slice';
 
 const PredictionPopup = (match) => {
   const dispatch = useDispatch();
-  const { away, home, id, status } = match.match[0];
+  const { away, home, id, status } = match.match[0].match;
   const { userId, username } = match.match[0].userData;
   const [result, setResult] = useState('winner');
   const [newScore, setNewScore] = useState({
@@ -48,11 +47,7 @@ const PredictionPopup = (match) => {
   };
   const handleScoreSubmit = async (e) => {
     e.preventDefault();
-    console.log('newScore', newScore);
     dispatch(addNewScore({ ...newScore, winner: result }));
-    // dispatch(scoresActions.addScore(newScore));
-
-    // dispatch(scoresActions.newScore(true));
     dispatch(popupActions.togglePrediction(false));
   };
 
@@ -97,9 +92,14 @@ const PredictionPopup = (match) => {
           />
         </div>
       </form>
-      <button className="add-btn" onClick={handleScoreSubmit}>
-        Add Score
-      </button>
+      <div className="btn-container">
+        <button className="score-btn bg-red" onClick={handleScoreSubmit}>
+          Cancel
+        </button>
+        <button className="score-btn bg-blue" onClick={handleScoreSubmit}>
+          Add Score
+        </button>
+      </div>
     </Modal>
   );
 };

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getScoresData } from './store/scores-actions';
 import { getUserData } from './store/user-actions';
 import { getFixtureData } from './store/fixture-actions';
-import Predictions from './components/Predictions';
 import './App.css';
 import MatchCard from './components/MatchCard';
 import NavBar from './components/NavBar';
@@ -28,6 +27,7 @@ function App() {
   const scoreAdded = useSelector((state) => state.scores.scoreAdded);
 
   useEffect(() => {
+    dispatch(getUserData());
     if (!userLogged) {
       const timer = setTimeout(() => {
         dispatch(popupActions.togglePopup(false));
@@ -48,23 +48,24 @@ function App() {
     dispatch(getScoresData());
   }, [dispatch]);
 
-  const scoresArray = Object.values(scores.scores);
-  const usersArray = Object.values(users.user);
-  const userData = JSON.parse(userLogged);
+  let scoresArray =
+    scores.scores !== 0 ? Object?.values(scores.scores) : 'no scores';
 
-  // console.log('scores', scores);
+  let usersArray =
+    users.user !== 'NO USERS' ? Object.values(users?.user) : 'no users';
+  const userData = JSON?.parse(userLogged);
 
   return (
     <>
       <NavBar user={user} />
 
       {/* {showPopup && <Popup />} */}
-      <div>
+      <main>
         {matches &&
           matches.map((match) => (
             <MatchCard key={match.id} props={{ match, userData }} />
           ))}
-      </div>
+      </main>
       {showPopup && <Login users={usersArray} />}
       {/* <Predictions userData={userData} /> */}
       {showPrediction && selectedMatch && (
