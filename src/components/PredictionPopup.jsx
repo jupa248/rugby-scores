@@ -50,6 +50,9 @@ const PredictionPopup = (match) => {
     dispatch(addNewScore({ ...newScore, winner: result }));
     dispatch(popupActions.togglePrediction(false));
   };
+  const onClose = () => {
+    dispatch(popupActions.togglePrediction(false));
+  };
 
   return (
     <Modal onClose={handlePredictionPopup}>
@@ -93,7 +96,7 @@ const PredictionPopup = (match) => {
         </div>
       </form>
       <div className="btn-container">
-        <button className="score-btn bg-red" onClick={handleScoreSubmit}>
+        <button className="score-btn bg-red" onClick={onClose}>
           Cancel
         </button>
         <button className="score-btn bg-blue" onClick={handleScoreSubmit}>

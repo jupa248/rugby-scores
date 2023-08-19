@@ -101,6 +101,7 @@
 }
 .winner {
   display: inline-flex;
+  align-self: center;
   width: 1rem;
   height: 1rem;
   background-size: cover;
@@ -155,9 +156,18 @@
   border-radius: 10px;
   width: 80%;
   height: 80%;
+  -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
 }
 .user-score p {
   margin: 0;
+  display: inline-flex;
+}
+
+.team-score > p:first-child {
+  color: #808080;
+  font-weight: 600;
 }
 .user-score_name {
   grid-area: name;
@@ -174,4 +184,9 @@
 }
 .user-score_away {
   grid-area: away;
+}
+
+.score-number {
+  font-size: 1.3rem;
+  font-weight: 800;
 }

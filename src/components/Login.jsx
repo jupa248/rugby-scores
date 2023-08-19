@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Login.css';
 import { useDispatch } from 'react-redux';
 import Modal from './UI/Modal';
 import { addNewUser } from '../store/user-actions';
@@ -39,16 +40,19 @@ const Login = (users) => {
 
   return (
     <Modal onClose={toggleHandler}>
-      <h2>Enter your name</h2>
-      <form onSubmit={handleSubmit}>
+      <div className="login-header">
+        {/* <h2>Enter your name</h2> */}
+        <span className="ball-icon" />
+      </div>
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Please enter your name..."
           value={user.username}
           onChange={handleChange}
         />
+        <button onClick={handleSubmit}>Go!</button>
       </form>
-      <button onClick={handleSubmit}>Apply</button>
     </Modal>
   );
 };

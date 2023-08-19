@@ -55,19 +55,29 @@ function App() {
     users.user !== 'NO USERS' ? Object.values(users?.user) : 'no users';
   const userData = JSON?.parse(userLogged);
 
+  const userScores = Object.values(scores.scores).filter((score) => {
+    return score.user === userData?.userId;
+  });
+  const scoresString = JSON.stringify(userScores);
+
   return (
     <>
       <NavBar user={user} />
-
-      {/* {showPopup && <Popup />} */}
       <main>
         {matches &&
-          matches.map((match) => (
-            <MatchCard key={match.id} props={{ match, userData }} />
-          ))}
+          matches.map((match) => {
+            const hasPrediction = scoresString.includes(
+              `"scoreId":${match.id}`,
+            );
+            return (
+              <MatchCard
+                key={match.id}
+                props={{ match, userData, hasPrediction }}
+              />
+            );
+          })}
       </main>
       {showPopup && <Login users={usersArray} />}
-      {/* <Predictions userData={userData} /> */}
       {showPrediction && selectedMatch && (
         <PredictionPopup match={selectedMatch} />
       )}

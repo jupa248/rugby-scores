@@ -14,12 +14,8 @@ const MatchCard = ({ props }) => {
   const hour = event.getHours();
   const minutes = event.getMinutes();
   const parseHours = `${hour}:${minutes === 0 ? '00' : minutes}`;
-  // console.log('scores', scores);
-  const userScores = Object.values(scores.scores).filter((score) => {
-    return score.user === userData?.userId;
-  });
 
-  // console.log('userScores-match', userScores.length === 0 ? 'yes' : 'no');
+  // console.log('scores-match', scores);
   const handlePredictionPopup = (props) => {
     // console.log('handle-props:', props);
     dispatch(popupActions.togglePrediction(props));
@@ -39,8 +35,6 @@ const MatchCard = ({ props }) => {
             <p>{parseDate}</p>
             <p>{parseHours}</p>
             <h4>vs</h4>
-            <h2>{id}</h2>
-            <h2>{userData?.userId}</h2>
             <p>{venue}</p>
           </div>
         ) : (
@@ -60,41 +54,41 @@ const MatchCard = ({ props }) => {
           <h3>{away}</h3>
         </div>
       </div>
-      {userScores.length > 0 &&
-        userScores.map(
-          (score, index) =>
-            score.scoreId === id && (
+
+      {props.hasPrediction &&
+        Object.values(scores.scores)
+          .filter((score) => score.scoreId === id)
+          .map((score, index) => {
+            const { homeScore, awayScore } = score;
+            return (
               <div key={index} className="user-score">
-                {console.log(score.scoreId === id)}
                 <p className="user-score_name">{userData.username} predicts:</p>
                 <div className="team-score user-score_home">
                   <p>
                     {home}
-                    <span className="winner" />
+                    <span className={homeScore > awayScore ? 'winner' : ''} />
                   </p>
-                  <p>{score.homeScore}</p>
+                  <p className="score-number">{homeScore}</p>
                 </div>
                 <div className="team-score user-score_away">
                   <p>
                     {away}
-                    <span className="winner" />
+                    <span className={homeScore < awayScore ? 'winner' : ''} />
                   </p>
-                  <p>{score.awayScore}</p>
+                  <p className="score-number">{awayScore}</p>
                 </div>
               </div>
-            ),
-        )}
+            );
+          })}
+      {!props.hasPrediction && (
+        <button
+          className="btn-predict"
+          onClick={() => handlePredictionPopup(props)}
+        >
+          Predict score
+        </button>
+      )}
     </article>
   );
 };
 export default MatchCard;
-{
-  /* <button
-key={index}
-className="btn-predict"
-onClick={() => handlePredictionPopup(props)}
->
-Predict score
-</button> */
-}
-// .filter((score) => score.scoreId === id)
