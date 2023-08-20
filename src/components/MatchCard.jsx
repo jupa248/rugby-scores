@@ -15,7 +15,6 @@ const MatchCard = ({ props }) => {
   const minutes = event.getMinutes();
   const parseHours = `${hour}:${minutes === 0 ? '00' : minutes}`;
 
-  // console.log('scores-match', scores);
   const handlePredictionPopup = (props) => {
     // console.log('handle-props:', props);
     dispatch(popupActions.togglePrediction(props));
@@ -57,7 +56,9 @@ const MatchCard = ({ props }) => {
 
       {props.hasPrediction &&
         Object.values(scores.scores)
-          .filter((score) => score.scoreId === id)
+          .filter(
+            (score) => score.scoreId === id && score.user === userData.userId,
+          )
           .map((score, index) => {
             const { homeScore, awayScore } = score;
             return (

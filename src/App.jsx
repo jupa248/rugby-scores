@@ -13,6 +13,7 @@ import Login from './components/Login';
 import { popupActions } from './store/popup-slice';
 import PredictionPopup from './components/PredictionPopup';
 import { scoresActions } from './store/scores-slice';
+import Predictions from './components/Predictions';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,6 @@ function App() {
   const scores = useSelector((state) => state.scores);
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged);
-  const scoreAdded = useSelector((state) => state.scores.scoreAdded);
 
   useEffect(() => {
     dispatch(getUserData());
@@ -36,16 +36,17 @@ function App() {
         clearTimeout(timer);
       };
     }
-    console.log('userLogged');
+    console.log('userLogged rendered');
   }, [dispatch, userLogged]);
 
   useEffect(() => {
     dispatch(getFixtureData());
-    console.log('fixtures');
+    console.log('fixtures rendered');
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getScoresData());
+    console.log('scores rendered');
   }, [dispatch]);
 
   let scoresArray =
@@ -58,15 +59,18 @@ function App() {
   const userScores = Object.values(scores.scores).filter((score) => {
     return score.user === userData?.userId;
   });
-  const scoresString = JSON.stringify(userScores);
+  const userScoresString = JSON.stringify(userScores);
+  const selected = 'Predictions';
+  // console.log(userScores);
 
   return (
     <>
       <NavBar user={user} />
       <main>
         {matches &&
+          selected === 'Fixture' &&
           matches.map((match) => {
-            const hasPrediction = scoresString.includes(
+            const hasPrediction = userScoresString.includes(
               `"scoreId":${match.id}`,
             );
             return (
@@ -76,6 +80,23 @@ function App() {
               />
             );
           })}
+        {/* {matches &&
+          selected === 'Predictions' &&
+          matches.map((match) => {
+            const hasPrediction = userScoresString.includes(
+              `"scoreId":${match.id}`,
+            );
+
+            return (
+              <Predictions
+                key={match.id}
+                props={{ match, userData, hasPrediction, userScores }}
+              />
+            );
+          })} */}
+        {selected === 'Predictions' && (
+          <Predictions props={{ userScores, matches }} />
+        )}
       </main>
       {showPopup && <Login users={usersArray} />}
       {showPrediction && selectedMatch && (

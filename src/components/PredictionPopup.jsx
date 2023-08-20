@@ -13,6 +13,8 @@ const PredictionPopup = (match) => {
   const [newScore, setNewScore] = useState({
     user: userId,
     scoreId: id,
+    home: home,
+    away: away,
     winner: '',
     homeScore: '' || 0,
     awayScore: '' || 0,

@@ -26,11 +26,11 @@ const Login = (users) => {
     }
     if (match) {
       localStorage.setItem('user', JSON.stringify(match));
-      await dispatch(popupActions.togglePopup(false));
+      dispatch(popupActions.togglePopup(false));
     } else {
-      await dispatch(addNewUser(user));
-      await localStorage.setItem('user', JSON.stringify(user));
-      await dispatch(popupActions.togglePopup(false));
+      dispatch(addNewUser(user));
+      localStorage.setItem('user', JSON.stringify(user));
+      dispatch(popupActions.togglePopup(false));
     }
   };
 
@@ -46,6 +46,7 @@ const Login = (users) => {
       </div>
       <form onSubmit={handleSubmit} className="login-form">
         <input
+          autoFocus
           type="text"
           placeholder="Please enter your name..."
           value={user.username}
