@@ -15,9 +15,6 @@ const scoresSlice = createSlice({
       const { newScoreId, newScoreData } = action.payload;
       state.scores = { ...state.scores, [newScoreId]: newScoreData };
     },
-    newScore(state) {
-      state.scoreAdded = !state.scoreAdded;
-    },
   },
 });
 
