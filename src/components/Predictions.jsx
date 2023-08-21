@@ -7,8 +7,8 @@ const Predictions = ({ props }) => {
   // };
 
   return (
-    <>
-      <h2>Predictions</h2>
+    <section>
+      {/* <h2>Predictions</h2> */}
       {userScores.length > 0 ? (
         <Calculator props={{ matches, userScores }} />
       ) : (
@@ -34,7 +34,7 @@ const Predictions = ({ props }) => {
         // ))
         <p>No Predictions</p>
       )}
-    </>
+    </section>
   );
 };
 export default Predictions;

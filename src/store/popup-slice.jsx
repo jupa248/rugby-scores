@@ -4,6 +4,7 @@ const initialState = {
   showPopup: false,
   showPrediction: false,
   selectedMatch: [],
+  section: 'Fixture',
 };
 
 const popupSlice = createSlice({
@@ -20,6 +21,10 @@ const popupSlice = createSlice({
         : (state.selectedMatch = []);
 
       state.showPrediction = !state.showPrediction;
+    },
+    changeSection(state, action) {
+      const section = action.payload;
+      state.section = section;
     },
   },
 });

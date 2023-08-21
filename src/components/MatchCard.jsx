@@ -27,7 +27,7 @@ const MatchCard = ({ props }) => {
           <div
             className={`bg-flag ${home.toLowerCase().replace(' ', '-')}`}
           ></div>
-          <h3>{home}</h3>
+          <p>{home}</p>
         </div>
         {status === 'Not Started' ? (
           <div>
@@ -50,7 +50,7 @@ const MatchCard = ({ props }) => {
           <div
             className={`bg-flag ${away.toLowerCase().replace(' ', '-')}`}
           ></div>
-          <h3>{away}</h3>
+          <p>{away}</p>
         </div>
       </div>
 

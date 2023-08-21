@@ -4,18 +4,22 @@ import { popupActions } from '../store/popup-slice';
 
 const NavBar = (user) => {
   const dispatch = useDispatch();
+  let userName = user.user?.username ?? 'User';
+
   const toggleHandler = () => {
     dispatch(popupActions.togglePopup());
   };
 
-  let userName = user.user?.username ?? 'User'
+  const handlePage = (page) => {
+    dispatch(popupActions.changeSection(page));
+  };
 
   return (
     <nav className="nav-container">
       <div className="logo"></div>
       <div onClick={toggleHandler}>{userName}</div>
-      <div>Fixture</div>
-      <div>Predictions</div>
+      <div onClick={() => handlePage('Fixture')}>Fixture</div>
+      <div onClick={() => handlePage('Predictions')}>Predictions</div>
     </nav>
   );
 };

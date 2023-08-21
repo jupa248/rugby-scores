@@ -1,7 +1,7 @@
 .match-card {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  margin: 2rem 1rem;
   box-shadow: -1px 3px 9px -1px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -1px 3px 9px -1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 3px 9px -1px rgba(0, 0, 0, 0.75);
@@ -21,19 +21,24 @@
   justify-content: center;
   align-items: center;
 }
+.country p {
+  font-weight: 600;
+}
 
 .bg-flag {
   width: 3.5rem;
   height: 3.5rem;
   background-size: cover;
   background-repeat: no-repeat;
+  margin-top: 1rem;
 }
 
 .score {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 0;
+  font-weight: 700;
+  font-size: 1.4rem;
 }
 
 .spain {
@@ -112,14 +117,14 @@
 .prediction-container {
   display: flex;
   /* justify-content: space-between; */
-  background-color: #2d3cff;
+  background-color: #38519f;
   color: #fff;
 }
 
 .btn-predict {
   width: 100%;
   height: 3rem;
-  background-color: #2d3cff;
+  background-color: #38519f;
   color: #fff;
   font-size: 1rem;
   font-weight: bold;
@@ -128,8 +133,8 @@
 
 .btn-predict:active {
   background-color: #fff;
-  color: #2d3cff;
-  border: 2px solid #2d3cff;
+  color: #38519f;
+  border: 2px solid #38519f;
 }
 
 .user-score {
@@ -142,7 +147,7 @@
   grid-template-areas:
     'name name'
     'home away';
-  background-color: #2d3cff;
+  background-color: #38519f;
   /* color: #fff; */
 }
 

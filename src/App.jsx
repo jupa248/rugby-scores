@@ -21,6 +21,7 @@ function App() {
   const showPopup = useSelector((state) => state.popup.showPopup);
   const showPrediction = useSelector((state) => state.popup.showPrediction);
   const selectedMatch = useSelector((state) => state.popup.selectedMatch);
+  const pageSection = useSelector((state) => state.popup.section);
   const users = useSelector((state) => state.user);
   const scores = useSelector((state) => state.scores);
   const userLogged = localStorage.getItem('user');
@@ -60,15 +61,13 @@ function App() {
     return score.user === userData?.userId;
   });
   const userScoresString = JSON.stringify(userScores);
-  const selected = 'Predictions';
-  // console.log(userScores);
 
   return (
     <>
       <NavBar user={user} />
       <main>
         {matches &&
-          selected === 'Fixture' &&
+          pageSection === 'Fixture' &&
           matches.map((match) => {
             const hasPrediction = userScoresString.includes(
               `"scoreId":${match.id}`,
@@ -94,7 +93,7 @@ function App() {
               />
             );
           })} */}
-        {selected === 'Predictions' && (
+        {pageSection === 'Predictions' && (
           <Predictions props={{ userScores, matches }} />
         )}
       </main>
