@@ -17,9 +17,9 @@ const NavBar = (user) => {
   return (
     <nav className="nav-container">
       <div className="logo"></div>
-      <div onClick={toggleHandler}>{userName}</div>
       <div onClick={() => handlePage('Fixture')}>Fixture</div>
       <div onClick={() => handlePage('Predictions')}>Predictions</div>
+      <div onClick={toggleHandler}>{userName}</div>
     </nav>
   );
 };

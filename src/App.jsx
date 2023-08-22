@@ -79,20 +79,6 @@ function App() {
               />
             );
           })}
-        {/* {matches &&
-          selected === 'Predictions' &&
-          matches.map((match) => {
-            const hasPrediction = userScoresString.includes(
-              `"scoreId":${match.id}`,
-            );
-
-            return (
-              <Predictions
-                key={match.id}
-                props={{ match, userData, hasPrediction, userScores }}
-              />
-            );
-          })} */}
         {pageSection === 'Predictions' && (
           <Predictions props={{ userScores, matches }} />
         )}

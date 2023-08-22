@@ -103,7 +103,6 @@ const Calculator = ({ props }) => {
   };
 
   const totalPoints = calculateTotalPoints(total);
-  console.log('user:', user);
 
   return (
     <>
@@ -114,6 +113,7 @@ const Calculator = ({ props }) => {
         </h4>
         <h3>Total Points: {totalPoints}</h3>
       </div>
+
       <div className="references"></div>
       {userScores &&
         matches &&
@@ -203,6 +203,30 @@ const Calculator = ({ props }) => {
             </article>
           );
         })}
+      <div className="references">
+        <small>
+          <strong>* Points Reference:</strong>
+        </small>
+        <small>
+          <strong>MR</strong> - Match Result: <em>(winner / draw)</em> 10pts.
+        </small>
+        <small>
+          <strong>SS</strong> - Same Score: <em>(home / away)</em> 10pts each.
+          <em>(both: +10)</em>
+        </small>
+        <small>
+          <strong>CS:</strong> Close Score <em>(up to 3 pts. difference)</em>{' '}
+          3pts each.
+        </small>
+        <small>
+          <strong>SD:</strong> Same Difference{' '}
+          <em>(between home and away teams)</em> 5pts.
+        </small>
+        <small>
+          <strong>MT:</strong> Match Total{' '}
+          <em>(total points for this match prediction.)</em>
+        </small>
+      </div>
     </>
   );
 };
