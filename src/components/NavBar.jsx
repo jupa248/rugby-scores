@@ -1,17 +1,17 @@
 import './NavBar.css';
 import { useDispatch } from 'react-redux';
-import { popupActions } from '../store/popup-slice';
+import { uiActions } from '../store/ui-slice';
 
 const NavBar = (user) => {
   const dispatch = useDispatch();
   let userName = user.user?.username ?? 'User';
 
   const toggleHandler = () => {
-    dispatch(popupActions.togglePopup());
+    dispatch(uiActions.togglePopup());
   };
 
   const handlePage = (page) => {
-    dispatch(popupActions.changeSection(page));
+    dispatch(uiActions.changeSection(page));
   };
 
   return (

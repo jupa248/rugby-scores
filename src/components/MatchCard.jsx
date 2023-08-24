@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { popupActions } from '../store/popup-slice';
+import { uiActions } from '../store/ui-slice';
 import './MatchCard.css';
 
 const MatchCard = ({ props }) => {
@@ -17,7 +17,7 @@ const MatchCard = ({ props }) => {
 
   const handlePredictionPopup = (props) => {
     // console.log('handle-props:', props);
-    dispatch(popupActions.togglePrediction(props));
+    dispatch(uiActions.togglePrediction(props));
   };
 
   return (

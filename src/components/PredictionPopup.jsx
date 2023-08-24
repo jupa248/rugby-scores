@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './PredictionPopup.css';
 import Modal from './UI/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { popupActions } from '../store/popup-slice';
+import { uiActions } from '../store/ui-slice';
 import { addNewScore } from '../store/scores-actions';
 
 const PredictionPopup = (match) => {
@@ -27,7 +27,7 @@ const PredictionPopup = (match) => {
   }, [newScore.homeScore, newScore.awayScore, result]);
 
   const handlePredictionPopup = () => {
-    dispatch(popupActions.togglePrediction());
+    dispatch(uiActions.togglePrediction());
   };
 
   const handleResult = async (e) => {
@@ -50,10 +50,10 @@ const PredictionPopup = (match) => {
   const handleScoreSubmit = async (e) => {
     e.preventDefault();
     dispatch(addNewScore({ ...newScore, winner: result }));
-    dispatch(popupActions.togglePrediction(false));
+    dispatch(uiActions.togglePrediction(false));
   };
   const onClose = () => {
-    dispatch(popupActions.togglePrediction(false));
+    dispatch(uiActions.togglePrediction(false));
   };
 
   return (

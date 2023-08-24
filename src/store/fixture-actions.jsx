@@ -1,10 +1,12 @@
 import { fixtureActions } from './fixture-slice';
 import { FIXTURES_URL } from '../Models/config';
+import { uiActions } from './ui-slice';
 import axios from 'axios';
 
 export const getFixtureData = () => {
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoading(true))
       const response = await axios.get(FIXTURES_URL);
 
       if (response.statusText !== 'OK') {
@@ -13,8 +15,11 @@ export const getFixtureData = () => {
       }
 
       dispatch(fixtureActions.getFixture(response.data));
+      dispatch(uiActions.setLoading(false))
     } catch (error) {
-      console.error('Error fetching fixture:', error);
+      // console.log('Error fetching fixture:', error.message);
+      dispatch(uiActions.setError(error.message))
+      return error
     }
   };
 };

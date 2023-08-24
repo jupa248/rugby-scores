@@ -10,7 +10,7 @@ import './App.css';
 import MatchCard from './components/MatchCard';
 import NavBar from './components/NavBar';
 import Login from './components/Login';
-import { popupActions } from './store/popup-slice';
+import { uiActions } from './store/ui-slice';
 import PredictionPopup from './components/PredictionPopup';
 import { scoresActions } from './store/scores-slice';
 import Predictions from './components/Predictions';
@@ -18,10 +18,12 @@ import Predictions from './components/Predictions';
 function App() {
   const dispatch = useDispatch();
   const matches = useSelector((state) => state.fixture.fixture);
-  const showPopup = useSelector((state) => state.popup.showPopup);
-  const showPrediction = useSelector((state) => state.popup.showPrediction);
-  const selectedMatch = useSelector((state) => state.popup.selectedMatch);
-  const pageSection = useSelector((state) => state.popup.section);
+  const showPopup = useSelector((state) => state.ui.showPopup);
+  const showPrediction = useSelector((state) => state.ui.showPrediction);
+  const selectedMatch = useSelector((state) => state.ui.selectedMatch);
+  const pageSection = useSelector((state) => state.ui.section);
+  const error = useSelector(state => state.ui.error)
+  const loading = useSelector(state => state.ui.loading)
   const users = useSelector((state) => state.user);
   const scores = useSelector((state) => state.scores);
   const userLogged = localStorage.getItem('user');
@@ -31,7 +33,7 @@ function App() {
     dispatch(getUserData());
     if (!userLogged) {
       const timer = setTimeout(() => {
-        dispatch(popupActions.togglePopup(false));
+        dispatch(uiActions.togglePopup(false));
       }, 3000);
       return () => {
         clearTimeout(timer);
@@ -44,6 +46,8 @@ function App() {
     dispatch(getFixtureData());
     console.log('fixtures rendered');
   }, [dispatch]);
+  console.log(error);
+  console.log(loading);
 
   useEffect(() => {
     dispatch(getScoresData());

@@ -4,11 +4,13 @@ const initialState = {
   showPopup: false,
   showPrediction: false,
   selectedMatch: [],
+  loading: false,
+  error: [],
   section: 'Fixture',
 };
 
-const popupSlice = createSlice({
-  name: 'popup',
+const uiSlice = createSlice({
+  name: 'ui',
   initialState,
   reducers: {
     togglePopup(state) {
@@ -26,9 +28,15 @@ const popupSlice = createSlice({
       const section = action.payload;
       state.section = section;
     },
+    setLoading(state, action){
+      state.loading = action.payload
+    },
+    setError(state, action){
+      state.error = action.payload
+    }
   },
 });
 
-export const popupActions = popupSlice.actions;
+export const uiActions = uiSlice.actions;
 
-export default popupSlice;
+export default uiSlice;

@@ -1,10 +1,12 @@
 import { scoresActions } from './scores-slice';
+import { uiActions } from './ui-slice';
 import { SCORES_URL, USER_URL } from '../Models/config';
 import axios from 'axios';
 
 export const getScoresData = () => {
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoading(true))
       const response = await axios.get(SCORES_URL);
 
       if (response.status !== 200) {
@@ -13,8 +15,11 @@ export const getScoresData = () => {
       }
 
       dispatch(scoresActions.getScores(response.data ?? 0));
+      dispatch(uiActions.setLoading(false))
     } catch (error) {
       console.error('Error fetching scores:', error);
+      dispatch(uiActions.setError(error.message))
+      return error
     }
   };
 };

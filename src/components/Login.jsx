@@ -3,7 +3,7 @@ import './Login.css';
 import { useDispatch } from 'react-redux';
 import Modal from './UI/Modal';
 import { addNewUser } from '../store/user-actions';
-import { popupActions } from '../store/popup-slice';
+import { uiActions } from '../store/ui-slice';
 
 const Login = (users) => {
   const dispatch = useDispatch();
@@ -26,16 +26,16 @@ const Login = (users) => {
     }
     if (match) {
       localStorage.setItem('user', JSON.stringify(match));
-      dispatch(popupActions.togglePopup(false));
+      dispatch(uiActions.togglePopup(false));
     } else {
       dispatch(addNewUser(user));
       localStorage.setItem('user', JSON.stringify(user));
-      dispatch(popupActions.togglePopup(false));
+      dispatch(uiActions.togglePopup(false));
     }
   };
 
   const toggleHandler = () => {
-    dispatch(popupActions.togglePopup());
+    dispatch(uiActions.togglePopup());
   };
 
   return (
