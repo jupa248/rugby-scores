@@ -6,7 +6,7 @@ import { USER_URL } from '../Models/config';
 export const getUserData = () => {
   return async (dispatch) => {
     try {
-      dispatch(uiActions.setLoading(true))
+      dispatch(uiActions.setLoading(true));
       const response = await axios.get(USER_URL);
 
       if (response.status !== 200) {
@@ -14,11 +14,12 @@ export const getUserData = () => {
         throw new Error('Could not get user data!');
       }
       await dispatch(userActions.getUser(response.data ?? 'NO USERS'));
-      dispatch(uiActions.setLoading(false))
+      dispatch(uiActions.setLoading(false));
     } catch (error) {
       console.error('Error fetching scores:', error);
-      dispatch(uiActions.setError(error.message))
-      return error
+      dispatch(uiActions.setError(error));
+      dispatch(uiActions.setLoading(false));
+      return error;
     }
   };
 };

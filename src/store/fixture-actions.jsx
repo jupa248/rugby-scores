@@ -6,7 +6,7 @@ import axios from 'axios';
 export const getFixtureData = () => {
   return async (dispatch) => {
     try {
-      dispatch(uiActions.setLoading(true))
+      dispatch(uiActions.setLoading(true));
       const response = await axios.get(FIXTURES_URL);
 
       if (response.statusText !== 'OK') {
@@ -15,11 +15,12 @@ export const getFixtureData = () => {
       }
 
       dispatch(fixtureActions.getFixture(response.data));
-      dispatch(uiActions.setLoading(false))
+      dispatch(uiActions.setLoading(false));
     } catch (error) {
       // console.log('Error fetching fixture:', error.message);
-      dispatch(uiActions.setError(error.message))
-      return error
+      dispatch(uiActions.setError(error.message));
+      dispatch(uiActions.setLoading(false));
+      return error;
     }
   };
 };

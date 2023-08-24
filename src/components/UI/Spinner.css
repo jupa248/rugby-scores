@@ -1,0 +1,33 @@
+.spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6e6e6;
+  height: 100vh;
+  width: 100vw;
+  color: #38519f;
+}
+
+.spinner h2 {
+  padding: 2rem 0;
+  font-style: italic;
+}
+
+.loading-ball {
+  width: 4rem;
+  height: 4rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../../assets/images/ball.svg);
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

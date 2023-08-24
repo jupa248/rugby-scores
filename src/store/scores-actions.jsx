@@ -6,7 +6,7 @@ import axios from 'axios';
 export const getScoresData = () => {
   return async (dispatch) => {
     try {
-      dispatch(uiActions.setLoading(true))
+      dispatch(uiActions.setLoading(true));
       const response = await axios.get(SCORES_URL);
 
       if (response.status !== 200) {
@@ -15,11 +15,12 @@ export const getScoresData = () => {
       }
 
       dispatch(scoresActions.getScores(response.data ?? 0));
-      dispatch(uiActions.setLoading(false))
+      dispatch(uiActions.setLoading(false));
     } catch (error) {
       console.error('Error fetching scores:', error);
-      dispatch(uiActions.setError(error.message))
-      return error
+      dispatch(uiActions.setError(error));
+      dispatch(uiActions.setLoading(false));
+      return error;
     }
   };
 };
@@ -27,6 +28,7 @@ export const getScoresData = () => {
 export const addNewScore = (newScoreData) => {
   return async (dispatch) => {
     try {
+      dispatch(uiActions.setLoading(true));
       const response = await axios.post(SCORES_URL, newScoreData);
       if (response.statusText !== 'OK') {
         throw new Error('Sending cart data failed.');
@@ -35,8 +37,12 @@ export const addNewScore = (newScoreData) => {
       // console.log(newScoreData);
 
       dispatch(scoresActions.addScore({ newScoreId, newScoreData }));
+      dispatch(uiActions.setLoading(false));
     } catch (error) {
       console.error('Error adding new score', error);
+      dispatch(uiActions.setError(error));
+      dispatch(uiActions.setLoading(false));
+      return error;
     }
   };
 };

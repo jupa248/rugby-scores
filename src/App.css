@@ -12,6 +12,23 @@
   color: #888;
 }
 
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  gap: 1rem;
+  /* background-color: rebeccapurple; */
+}
+
+.error-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(./assets/images/error-svgrepo-com.svg);
+}
+
 @media only screen and (min-width: 1024px) {
   main {
     display: flex;

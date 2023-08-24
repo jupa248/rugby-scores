@@ -14,6 +14,8 @@ import { uiActions } from './store/ui-slice';
 import PredictionPopup from './components/PredictionPopup';
 import { scoresActions } from './store/scores-slice';
 import Predictions from './components/Predictions';
+import Spinner from './components/UI/Spinner';
+import Error from './components/UI/Error';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,8 +24,8 @@ function App() {
   const showPrediction = useSelector((state) => state.ui.showPrediction);
   const selectedMatch = useSelector((state) => state.ui.selectedMatch);
   const pageSection = useSelector((state) => state.ui.section);
-  const error = useSelector(state => state.ui.error)
-  const loading = useSelector(state => state.ui.loading)
+  const error = useSelector((state) => state.ui.error);
+  const loading = useSelector((state) => state.ui.loading);
   const users = useSelector((state) => state.user);
   const scores = useSelector((state) => state.scores);
   const userLogged = localStorage.getItem('user');
@@ -33,7 +35,7 @@ function App() {
     dispatch(getUserData());
     if (!userLogged) {
       const timer = setTimeout(() => {
-        dispatch(uiActions.togglePopup(false));
+        dispatch(uiActions.togglePopup());
       }, 3000);
       return () => {
         clearTimeout(timer);
@@ -46,8 +48,6 @@ function App() {
     dispatch(getFixtureData());
     console.log('fixtures rendered');
   }, [dispatch]);
-  console.log(error);
-  console.log(loading);
 
   useEffect(() => {
     dispatch(getScoresData());
@@ -66,10 +66,15 @@ function App() {
   });
   const userScoresString = JSON.stringify(userScores);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <NavBar user={user} />
       <main>
+        {!!error.length > 0 && <Error err={error} />}
         {matches &&
           pageSection === 'Fixture' &&
           matches.map((match) => {
