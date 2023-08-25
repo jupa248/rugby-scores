@@ -16,10 +16,11 @@ const MatchCard = ({ props }) => {
   const parseHours = `${hour}:${minutes === 0 ? '00' : minutes}`;
 
   const handlePredictionPopup = (props) => {
-    // console.log('handle-props:', props);
+    // console.log('handle-props:', matchKey);
     dispatch(uiActions.togglePrediction(props));
   };
-
+  // console.log(status);
+  // Object.entries(scores.scores).map((sc) => console.log(sc[1]));
   return (
     <article className="match-card">
       <div className="grid-container">
@@ -55,15 +56,23 @@ const MatchCard = ({ props }) => {
       </div>
 
       {props.hasPrediction &&
-        Object.values(scores.scores)
+        Object.entries(scores.scores)
           .filter(
-            (score) => score.scoreId === id && score.user === userData.userId,
+            (score) =>
+              score[1].scoreId === id && score[1].user === userData.userId,
           )
           .map((score, index) => {
-            const { homeScore, awayScore } = score;
+            const { homeScore, awayScore } = score[1];
+            const matchKey = score[0];
             return (
               <div key={index} className="user-score">
-                <p className="user-score_name">{userData.username} predicts:</p>
+                <p className="user-score_name">
+                  {userData.username}{' '}
+                  {status === 'Not Started' ? 'predicts' : 'predicted'}
+                </p>
+                <button onClick={() => handlePredictionPopup(props)}>
+                  Edit
+                </button>
                 <div className="team-score user-score_home">
                   <p>
                     {home}
@@ -81,13 +90,16 @@ const MatchCard = ({ props }) => {
               </div>
             );
           })}
-      {!props.hasPrediction && (
+      {!props.hasPrediction && status === 'Not Started' && home !== 'TBC' && (
         <button
           className="btn-predict"
           onClick={() => handlePredictionPopup(props)}
         >
           Predict score
         </button>
+      )}
+      {!props.hasPrediction && status !== 'Not Started' && (
+        <p className="closed">Predictions closed</p>
       )}
     </article>
   );

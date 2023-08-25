@@ -104,6 +104,11 @@
 .fiji {
   background-image: url(../assets/flags/fiji.svg);
 }
+.tbc {
+  background-image: url(../assets/images/tbc-ball.svg);
+  width: 2rem;
+  height: 2rem;
+}
 .winner {
   display: inline-flex;
   align-self: center;
@@ -194,6 +199,13 @@
 .score-number {
   font-size: 1.3rem;
   font-weight: 800;
+}
+
+.closed {
+  background-color: #e73a1e;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
 }
 
 @media only screen and (min-width: 1024px) {

@@ -61,8 +61,8 @@ function App() {
     users.user !== 'NO USERS' ? Object.values(users?.user) : 'no users';
   const userData = JSON?.parse(userLogged);
 
-  const userScores = Object.values(scores.scores).filter((score) => {
-    return score.user === userData?.userId;
+  const userScores = Object.entries(scores.scores).filter((score) => {
+    return score[1].user === userData?.userId && score;
   });
   const userScoresString = JSON.stringify(userScores);
 
@@ -77,14 +77,19 @@ function App() {
         {!!error.length > 0 && <Error err={error} />}
         {matches &&
           pageSection === 'Fixture' &&
-          matches.map((match) => {
+          matches?.map((match) => {
             const hasPrediction = userScoresString.includes(
               `"scoreId":${match.id}`,
             );
+            let hasKey = userScores.find(
+              (score) => score[1].scoreId === match.id,
+            );
+            let matchKey = hasKey ? hasKey[0] : 'no-key';
+
             return (
               <MatchCard
                 key={match.id}
-                props={{ match, userData, hasPrediction }}
+                props={{ match, userData, hasPrediction, matchKey }}
               />
             );
           })}

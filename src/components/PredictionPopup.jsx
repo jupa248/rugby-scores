@@ -8,8 +8,10 @@ import { addNewScore } from '../store/scores-actions';
 const PredictionPopup = (match) => {
   const dispatch = useDispatch();
   const { away, home, id, status } = match.match[0].match;
+  const hasPrediction = match.match[0].hasPrediction;
   const { userId, username } = match.match[0].userData;
   const [result, setResult] = useState('winner');
+  // console.log(match);
   const [newScore, setNewScore] = useState({
     user: userId,
     scoreId: id,
@@ -101,9 +103,13 @@ const PredictionPopup = (match) => {
         <button className="score-btn bg-red" onClick={onClose}>
           Cancel
         </button>
-        <button className="score-btn bg-blue" onClick={handleScoreSubmit}>
-          Add Score
-        </button>
+        {hasPrediction ? (
+          <button>edit</button>
+        ) : (
+          <button className="score-btn bg-blue" onClick={handleScoreSubmit}>
+            Add Score
+          </button>
+        )}
       </div>
     </Modal>
   );
