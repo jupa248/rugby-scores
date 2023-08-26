@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   scores: {},
   points: [],
+  finals: [],
 };
 
 const scoresSlice = createSlice({
@@ -23,12 +24,10 @@ const scoresSlice = createSlice({
     removeScore(state, action) {
       const key = action.payload;
       delete state.scores[key];
-      // console.log('key:', key);
-      // const scores = Object.entries(state.scores);
-      // const remainingScores = scores.filter((score) => score[0] !== key);
-      // state.scores = remainingScores;
-      // console.log('remainingScores:', remainingScores);
-      // console.log('state.scores:', state.scores);
+    },
+    addFinals(state, action) {
+      const { userId, finals } = action.payload;
+      state.finals = { ...state.finals, [userId]: { finals } };
     },
     addPoints(state, action) {
       state.points = action.payload;

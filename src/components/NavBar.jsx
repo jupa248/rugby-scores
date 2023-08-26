@@ -16,7 +16,7 @@ const NavBar = (user) => {
 
   return (
     <nav className="nav-container">
-      <div className="logo"></div>
+      <div className="logo" onClick={() => handlePage('Fixture')}></div>
       <div onClick={() => handlePage('Fixture')}>Fixture</div>
       <div onClick={() => handlePage('Predictions')}>Predictions</div>
       <div onClick={toggleHandler}>{userName}</div>

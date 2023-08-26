@@ -16,18 +16,21 @@ import { scoresActions } from './store/scores-slice';
 import Predictions from './components/Predictions';
 import Spinner from './components/UI/Spinner';
 import Error from './components/UI/Error';
+import Finals from './components/Finals';
 
 function App() {
   const dispatch = useDispatch();
   const matches = useSelector((state) => state.fixture.fixture);
   const showPopup = useSelector((state) => state.ui.showPopup);
   const showPrediction = useSelector((state) => state.ui.showPrediction);
+  const showFinals = useSelector((state) => state.ui.showFinals);
   const selectedMatch = useSelector((state) => state.ui.selectedMatch);
   const pageSection = useSelector((state) => state.ui.section);
   const error = useSelector((state) => state.ui.error);
   const loading = useSelector((state) => state.ui.loading);
   const users = useSelector((state) => state.user);
   const scores = useSelector((state) => state.scores);
+  const finals = useSelector((state) => state.scores.finals);
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged);
 
@@ -69,7 +72,7 @@ function App() {
   if (loading) {
     return <Spinner />;
   }
-
+  console.log('finals:', finals);
   return (
     <>
       <NavBar user={user} />
@@ -101,6 +104,7 @@ function App() {
       {showPrediction && selectedMatch && (
         <PredictionPopup match={selectedMatch} />
       )}
+      {showFinals && <Finals user={user} />}
     </>
   );
 }

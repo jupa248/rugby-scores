@@ -111,14 +111,17 @@ const MatchCard = ({ props }) => {
               </div>
             );
           })}
-      {!props.hasPrediction && status === 'Not Started' && home !== 'TBC' && (
-        <button
-          className="btn-predict"
-          onClick={() => handlePredictionPopup(props)}
-        >
-          Predict score
-        </button>
-      )}
+      {!props.hasPrediction &&
+        status === 'Not Started' &&
+        home !== 'TBC' &&
+        away !== 'TBC' && (
+          <button
+            className="btn-predict"
+            onClick={() => handlePredictionPopup(props)}
+          >
+            Predict score
+          </button>
+        )}
       {!props.hasPrediction && status !== 'Not Started' && (
         <p className="closed">Predictions closed</p>
       )}

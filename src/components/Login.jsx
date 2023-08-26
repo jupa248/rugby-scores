@@ -41,7 +41,6 @@ const Login = (users) => {
   return (
     <Modal onClose={toggleHandler}>
       <div className="login-header">
-        {/* <h2>Enter your name</h2> */}
         <span className="ball-icon" />
       </div>
       <form onSubmit={handleSubmit} className="login-form">

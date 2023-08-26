@@ -1,0 +1,49 @@
+.finals-form {
+  display: flex;
+  justify-content: space-around;
+}
+
+.finals-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-icon {
+  width: 6rem;
+  height: 6rem;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/logo.svg);
+}
+
+.finals-form label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  color: #38519f;
+  font-weight: 800;
+}
+
+.finals-form input {
+  padding: 0.3rem 0.2rem;
+  border-radius: 5px;
+  border: 1px solid #38519f;
+}
+
+.champion {
+  width: 1rem;
+  height: 1rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/cup.svg);
+}
+.second {
+  width: 1rem;
+  height: 1rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/medal.svg);
+}

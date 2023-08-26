@@ -1,11 +1,17 @@
 import './Calculator.css';
-import userIcon from '../assets/images/user.svg';
+import { uiActions } from '../store/ui-slice';
+import { useDispatch } from 'react-redux';
 
 const Calculator = ({ props }) => {
+  const dispatch = useDispatch();
   const { matches, userScores } = props;
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged).username;
   const total = {};
+
+  const handleFinals = () => {
+    dispatch(uiActions.toggleFinals());
+  };
 
   const calculate = (userScore, matchResult) => {
     let matchTotal = {
@@ -113,6 +119,7 @@ const Calculator = ({ props }) => {
           {user}
         </h4>
         <h3>Total Points: {totalPoints}</h3>
+        <button onClick={handleFinals}>Predict Finals</button>
       </div>
 
       <div className="references"></div>

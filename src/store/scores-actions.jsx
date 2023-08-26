@@ -34,7 +34,6 @@ export const addNewScore = (newScoreData) => {
         throw new Error('Sending score data failed.');
       }
       const newScoreId = response.data.name;
-      // console.log(newScoreData);
 
       dispatch(scoresActions.addScore({ newScoreId, newScoreData }));
       dispatch(uiActions.setLoading(false));
@@ -82,6 +81,28 @@ export const deleteScore = (key) => {
       dispatch(uiActions.setLoading(false));
     } catch (error) {
       console.error('Error deleting score', error);
+      dispatch(uiActions.setError(error));
+      dispatch(uiActions.setLoading(false));
+      return error;
+    }
+  };
+};
+
+export const addFinals = (finalsData) => {
+  console.log('finalsData:', finalsData);
+  return async (dispatch) => {
+    try {
+      dispatch(uiActions.setLoading(true));
+      // const response = await axios.post(SCORES_URL, finalsData);
+      // if (response.statusText !== 'OK') {
+      //   throw new Error('Sending score data failed.');
+      // }
+      // const newScoreId = response.data.name;
+
+      dispatch(scoresActions.addFinals(finalsData));
+      dispatch(uiActions.setLoading(false));
+    } catch (error) {
+      console.error('Error adding new score', error);
       dispatch(uiActions.setError(error));
       dispatch(uiActions.setLoading(false));
       return error;

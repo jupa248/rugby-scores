@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   showPopup: false,
   showPrediction: false,
+  showFinals: false,
   selectedMatch: [],
   loading: false,
   error: [],
@@ -23,6 +24,9 @@ const uiSlice = createSlice({
         : (state.selectedMatch = []);
 
       state.showPrediction = !state.showPrediction;
+    },
+    toggleFinals(state) {
+      state.showFinals = !state.showFinals;
     },
     changeSection(state, action) {
       const section = action.payload;
