@@ -16,6 +16,10 @@ const scoresSlice = createSlice({
       const { newScoreId, newScoreData } = action.payload;
       state.scores = { ...state.scores, [newScoreId]: newScoreData };
     },
+    editScore(state, action) {
+      const { key, data } = action.payload;
+      state.scores[key] = data;
+    },
     addPoints(state, action) {
       state.points = action.payload;
     },

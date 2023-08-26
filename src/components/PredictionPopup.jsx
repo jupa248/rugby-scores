@@ -3,15 +3,16 @@ import './PredictionPopup.css';
 import Modal from './UI/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from '../store/ui-slice';
-import { addNewScore } from '../store/scores-actions';
+import { addNewScore, editScore } from '../store/scores-actions';
 
 const PredictionPopup = (match) => {
   const dispatch = useDispatch();
   const { away, home, id, status } = match.match[0].match;
   const hasPrediction = match.match[0].hasPrediction;
+  const key = match.match[0].matchKey;
   const { userId, username } = match.match[0].userData;
   const [result, setResult] = useState('winner');
-  // console.log(match);
+  // console.log(key);
   const [newScore, setNewScore] = useState({
     user: userId,
     scoreId: id,
@@ -52,6 +53,12 @@ const PredictionPopup = (match) => {
   const handleScoreSubmit = async (e) => {
     e.preventDefault();
     dispatch(addNewScore({ ...newScore, winner: result }));
+    dispatch(uiActions.togglePrediction(false));
+  };
+  const handleScoreEdit = async (e) => {
+    const data = { ...newScore, winner: result };
+    e.preventDefault();
+    dispatch(editScore(key, data));
     dispatch(uiActions.togglePrediction(false));
   };
   const onClose = () => {
@@ -104,7 +111,7 @@ const PredictionPopup = (match) => {
           Cancel
         </button>
         {hasPrediction ? (
-          <button>edit</button>
+          <button onClick={handleScoreEdit}>edit</button>
         ) : (
           <button className="score-btn bg-blue" onClick={handleScoreSubmit}>
             Add Score

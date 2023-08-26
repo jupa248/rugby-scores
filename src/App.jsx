@@ -61,8 +61,8 @@ function App() {
     users.user !== 'NO USERS' ? Object.values(users?.user) : 'no users';
   const userData = JSON?.parse(userLogged);
 
-  const userScores = Object.entries(scores.scores).filter((score) => {
-    return score[1].user === userData?.userId && score;
+  const userScores = Object.entries(scores?.scores).filter((score) => {
+    return score[1]?.user === userData?.userId && score;
   });
   const userScoresString = JSON.stringify(userScores);
 

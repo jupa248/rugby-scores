@@ -69,12 +69,13 @@ const Calculator = ({ props }) => {
   };
 
   userScores.forEach((score, index) => {
-    const match = matches.find((match) => match.id === score.scoreId);
-    if (match) {
-      const matchTotal = calculate(score, match);
+    const match = matches.find((match) => match.id === score[1].scoreId);
 
-      if (!total[score.scoreId]) {
-        total[score.scoreId] = {
+    if (match) {
+      const matchTotal = calculate(score[1], match);
+
+      if (!total[score[1].scoreId]) {
+        total[score[1].scoreId] = {
           winner: 0,
           sameScore: 0,
           pointsDiff: 0,
@@ -83,11 +84,11 @@ const Calculator = ({ props }) => {
         };
       }
       if (match.status === 'Result') {
-        total[score.scoreId].winner += matchTotal.winner;
-        total[score.scoreId].sameScore += matchTotal.sameScore;
-        total[score.scoreId].pointsDiff += matchTotal.pointsDiff;
-        total[score.scoreId].sameDiff += matchTotal.sameDiff;
-        total[score.scoreId].matchPoints += matchTotal.matchPoints;
+        total[score[1].scoreId].winner += matchTotal.winner;
+        total[score[1].scoreId].sameScore += matchTotal.sameScore;
+        total[score[1].scoreId].pointsDiff += matchTotal.pointsDiff;
+        total[score[1].scoreId].sameDiff += matchTotal.sameDiff;
+        total[score[1].scoreId].matchPoints += matchTotal.matchPoints;
       }
     }
   });
@@ -117,8 +118,9 @@ const Calculator = ({ props }) => {
       <div className="references"></div>
       {userScores &&
         matches &&
-        userScores.map((score, index) => {
-          const id = score.scoreId;
+        userScores.map((scores, index) => {
+          const id = scores[1].scoreId;
+          const score = scores[1];
           const match = matches.find((match) => match.id === score.scoreId);
           let bgClass = total[id]?.matchPoints > 0 ? 'bg-green' : 'bg-red';
           return (

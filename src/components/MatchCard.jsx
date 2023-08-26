@@ -56,10 +56,10 @@ const MatchCard = ({ props }) => {
       </div>
 
       {props.hasPrediction &&
-        Object.entries(scores.scores)
+        Object.entries(scores?.scores)
           .filter(
             (score) =>
-              score[1].scoreId === id && score[1].user === userData.userId,
+              score[1]?.scoreId === id && score[1]?.user === userData.userId,
           )
           .map((score, index) => {
             const { homeScore, awayScore } = score[1];
