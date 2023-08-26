@@ -6,11 +6,12 @@ import { uiActions } from '../store/ui-slice';
 import { addNewScore, editScore } from '../store/scores-actions';
 
 const PredictionPopup = (match) => {
+  console.log(match);
   const dispatch = useDispatch();
-  const { away, home, id, status } = match.match[0].match;
-  const hasPrediction = match.match[0].hasPrediction;
-  const key = match.match[0].matchKey;
-  const { userId, username } = match.match[0].userData;
+  const { away, home, id, status } = match?.match[0]?.match;
+  const hasPrediction = match?.match[0]?.hasPrediction;
+  const key = match?.match[0]?.matchKey;
+  const { userId, username } = match?.match[0]?.userData;
   const [result, setResult] = useState('winner');
   // console.log(key);
   const [newScore, setNewScore] = useState({
@@ -61,6 +62,7 @@ const PredictionPopup = (match) => {
     dispatch(editScore(key, data));
     dispatch(uiActions.togglePrediction(false));
   };
+
   const onClose = () => {
     dispatch(uiActions.togglePrediction(false));
   };
@@ -111,7 +113,7 @@ const PredictionPopup = (match) => {
           Cancel
         </button>
         {hasPrediction ? (
-          <button onClick={handleScoreEdit}>edit</button>
+          <button onClick={handleScoreEdit}>Edit</button>
         ) : (
           <button className="score-btn bg-blue" onClick={handleScoreSubmit}>
             Add Score

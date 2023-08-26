@@ -20,6 +20,16 @@ const scoresSlice = createSlice({
       const { key, data } = action.payload;
       state.scores[key] = data;
     },
+    removeScore(state, action) {
+      const key = action.payload;
+      delete state.scores[key];
+      // console.log('key:', key);
+      // const scores = Object.entries(state.scores);
+      // const remainingScores = scores.filter((score) => score[0] !== key);
+      // state.scores = remainingScores;
+      // console.log('remainingScores:', remainingScores);
+      // console.log('state.scores:', state.scores);
+    },
     addPoints(state, action) {
       state.points = action.payload;
     },

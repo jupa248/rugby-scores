@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { uiActions } from '../store/ui-slice';
+import { deleteScore } from '../store/scores-actions';
 import './MatchCard.css';
 
 const MatchCard = ({ props }) => {
   const dispatch = useDispatch();
   const { home, away, id, status, home_score, away_score, date, venue } =
     props.match;
-
+  const key = props.matchKey;
   const scores = useSelector((state) => state.scores);
   const userData = props.userData;
   const event = new Date(date);
@@ -18,6 +19,11 @@ const MatchCard = ({ props }) => {
   const handlePredictionPopup = (props) => {
     // console.log('handle-props:', matchKey);
     dispatch(uiActions.togglePrediction(props));
+  };
+  // console.log(scores);
+  const handleScoreDelete = async (e) => {
+    e.preventDefault();
+    dispatch(deleteScore(key));
   };
   // console.log(status);
   // Object.entries(scores.scores).map((sc) => console.log(sc[1]));
@@ -38,9 +44,9 @@ const MatchCard = ({ props }) => {
             <p>{venue}</p>
           </div>
         ) : (
-          <div>
+          <div className="result">
             <p>{status}</p>
-            <div className="score">
+            <div className="score bg-blue">
               <p>{home_score}</p>
               <span> - </span>
               <p>{away_score}</p>
@@ -63,16 +69,31 @@ const MatchCard = ({ props }) => {
           )
           .map((score, index) => {
             const { homeScore, awayScore } = score[1];
-            const matchKey = score[0];
             return (
               <div key={index} className="user-score">
-                <p className="user-score_name">
-                  {userData.username}{' '}
-                  {status === 'Not Started' ? 'predicts' : 'predicted'}
-                </p>
-                <button onClick={() => handlePredictionPopup(props)}>
-                  Edit
-                </button>
+                <div
+                  className={
+                    status === 'Not Started'
+                      ? 'user-score_name'
+                      : 'user-score_name center'
+                  }
+                >
+                  {status === 'Not Started' && (
+                    <button
+                      onClick={() => handlePredictionPopup(props)}
+                      className="edit"
+                    ></button>
+                  )}
+                  <p className={status === 'Not Started' ? '' : 'center'}>
+                    {userData.username}{' '}
+                    {status === 'Not Started' ? 'predicts' : 'predicted'}
+                  </p>
+                  {status === 'Not Started' && (
+                    <button onClick={handleScoreDelete} className="delete">
+                      X
+                    </button>
+                  )}
+                </div>
                 <div className="team-score user-score_home">
                   <p>
                     {home}

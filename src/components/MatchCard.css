@@ -39,6 +39,18 @@
   align-items: center;
   font-weight: 700;
   font-size: 1.4rem;
+  border-radius: 5px;
+}
+
+.score p {
+  margin: 0;
+  padding: 0.1rem 0.4rem;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .spain {
@@ -153,7 +165,49 @@
     'name name'
     'home away';
   background-color: #38519f;
-  /* color: #fff; */
+}
+
+.user-score_name {
+  grid-area: name;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding-bottom: 0.1rem; */
+  font-weight: bold;
+  border-bottom: 1px solid;
+}
+
+.center {
+  justify-content: center;
+}
+
+.user-score_home {
+  grid-area: home;
+}
+.user-score_away {
+  grid-area: away;
+}
+
+.edit {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/edit.svg);
+  background-color: #fff;
+}
+
+.delete {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #e73a1e;
+  color: #fff;
+}
+
+.bg-white {
+  background-color: #fff;
+  color: #38519f;
 }
 
 .team-score {
@@ -178,22 +232,6 @@
 .team-score > p:first-child {
   color: #808080;
   font-weight: 600;
-}
-.user-score_name {
-  grid-area: name;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.2rem 0;
-  font-weight: bold;
-  border-bottom: 1px solid;
-}
-.user-score_home {
-  grid-area: home;
-}
-.user-score_away {
-  grid-area: away;
 }
 
 .score-number {
