@@ -3,7 +3,7 @@ import axios from 'axios';
 import { dummyFixture } from './data/dummy-data';
 import { FIXTURES_URL } from './Models/config';
 import { useDispatch, useSelector } from 'react-redux';
-import { getScoresData } from './store/scores-actions';
+import { getScoresData, getFinalsData } from './store/scores-actions';
 import { getUserData } from './store/user-actions';
 import { getFixtureData } from './store/fixture-actions';
 import './App.css';
@@ -30,7 +30,6 @@ function App() {
   const loading = useSelector((state) => state.ui.loading);
   const users = useSelector((state) => state.user);
   const scores = useSelector((state) => state.scores);
-  const finals = useSelector((state) => state.scores.finals);
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged);
 
@@ -50,7 +49,8 @@ function App() {
   useEffect(() => {
     dispatch(getFixtureData());
     console.log('fixtures rendered');
-  }, [dispatch]);
+    dispatch(getFinalsData(user?.userId));
+  }, [dispatch, user?.userId]);
 
   useEffect(() => {
     dispatch(getScoresData());
@@ -72,7 +72,7 @@ function App() {
   if (loading) {
     return <Spinner />;
   }
-  console.log('finals:', finals);
+
   return (
     <>
       <NavBar user={user} />

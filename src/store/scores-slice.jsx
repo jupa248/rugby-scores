@@ -29,6 +29,9 @@ const scoresSlice = createSlice({
       const { userId, finals } = action.payload;
       state.finals = { ...state.finals, [userId]: { finals } };
     },
+    getFinals(state, action) {
+      state.finals = action.payload;
+    },
     addPoints(state, action) {
       state.points = action.payload;
     },

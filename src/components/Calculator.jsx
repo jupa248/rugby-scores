@@ -1,13 +1,16 @@
 import './Calculator.css';
 import { uiActions } from '../store/ui-slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Calculator = ({ props }) => {
   const dispatch = useDispatch();
+  const finals = useSelector((state) => state.scores.finals);
   const { matches, userScores } = props;
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged).username;
   const total = {};
+  const userFinals = Object.values(finals);
+  // console.log(!!userFinals[0]);
 
   const handleFinals = () => {
     dispatch(uiActions.toggleFinals());
@@ -119,7 +122,22 @@ const Calculator = ({ props }) => {
           {user}
         </h4>
         <h3>Total Points: {totalPoints}</h3>
-        <button onClick={handleFinals}>Predict Finals</button>
+        {!!userFinals[0] ? (
+          <div className="user-finals">
+            <p>
+              World Champion: <strong>{userFinals[0].winner}</strong>
+              <span className="champion" />
+            </p>
+            <p>
+              Second Place:<strong>{userFinals[0].looser}</strong>
+              <span className="second" />
+            </p>
+          </div>
+        ) : (
+          <button onClick={handleFinals} className="predict-final">
+            Predict Finals
+          </button>
+        )}
       </div>
 
       <div className="references"></div>

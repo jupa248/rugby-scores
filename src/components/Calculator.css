@@ -104,3 +104,30 @@ h4 {
   display: flex;
   flex-direction: column;
 }
+
+.predict-final {
+  border: none;
+  background-color: #213547;
+  color: #fff;
+  padding: 0.5rem 0.3rem;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.45);
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.45);
+}
+
+.user-finals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-finals p {
+  margin: 0;
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.user-finals span {
+  align-self: center;
+}

@@ -90,7 +90,11 @@ const Finals = (user) => {
           />
         </div>
       </form>
-      <button onClick={handleSubmit}>Send</button>
+      <div className="btn-finals">
+        <button onClick={handleSubmit} className="finals-btn">
+          Send
+        </button>
+      </div>
     </Modal>
   );
 };
