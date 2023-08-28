@@ -22,7 +22,10 @@ const Login = (users) => {
     e.preventDefault();
     let match;
     if (!!usersList[0].username) {
-      match = await usersList.find((name) => name.username === user.username);
+      let userLow = user.username.toLowerCase();
+      match = await usersList.find(
+        (name) => name.username.toLowerCase() === userLow,
+      );
     }
     if (match) {
       localStorage.setItem('user', JSON.stringify(match));

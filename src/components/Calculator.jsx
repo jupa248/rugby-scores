@@ -1,16 +1,13 @@
 import './Calculator.css';
 import { uiActions } from '../store/ui-slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Calculator = ({ props }) => {
   const dispatch = useDispatch();
-  const finals = useSelector((state) => state.scores.finals);
-  const { matches, userScores } = props;
+  const { matches, userScores, finals } = props;
   const userLogged = localStorage.getItem('user');
   const user = JSON.parse(userLogged).username;
   const total = {};
-  const userFinals = Object.values(finals);
-  // console.log(!!userFinals[0]);
 
   const handleFinals = () => {
     dispatch(uiActions.toggleFinals());
@@ -112,7 +109,56 @@ const Calculator = ({ props }) => {
     return totalPoints;
   };
 
+  let totalFinals = {
+    teamFinal: 0,
+    looser: 0,
+    winner: 0,
+    total: 0,
+  };
+  const calculateFinals = (finalMatch, userFinals) => {
+    let winner;
+    let looser;
+    let team1Low = userFinals.team1.toLowerCase();
+    let team2Low = userFinals.team2.toLowerCase();
+    let winnerTeam = userFinals.winner.toLowerCase();
+    let looserTeam = userFinals.looser.toLowerCase();
+    let homeTeam = finalMatch.home.toLowerCase();
+    let awayTeam = finalMatch.away.toLowerCase();
+    if (finalMatch.home_score > finalMatch.away_score) {
+      winner = homeTeam;
+      looser = awayTeam;
+    }
+    if (finalMatch.home_score < finalMatch.away_score) {
+      winner = awayTeam;
+      looser = homeTeam;
+    }
+    if (homeTeam === team1Low || homeTeam === team2Low) {
+      totalFinals.teamFinal += 25;
+      totalFinals.total += 25;
+    }
+    if (awayTeam === team1Low || awayTeam === team2Low) {
+      totalFinals.teamFinal += 25;
+      totalFinals.total += 25;
+    }
+    if (winnerTeam === winner) {
+      totalFinals.winner += 100;
+      totalFinals.total += 100;
+    }
+    if (looserTeam === looser) {
+      totalFinals.looser += 50;
+      totalFinals.total += 50;
+    }
+    return totalFinals;
+  };
+
   const totalPoints = calculateTotalPoints(total);
+
+  const finalMatch = matches.find((match) => match.id === 320752);
+  if (finalMatch.home !== 'TBC' && finalMatch.home !== 'TBC') {
+    calculateFinals(finalMatch, finals);
+  }
+
+  const globalPoints = totalPoints + totalFinals.total;
 
   return (
     <>
@@ -121,22 +167,53 @@ const Calculator = ({ props }) => {
           <span className="user-icon" />
           {user}
         </h4>
-        <h3>Total Points: {totalPoints}</h3>
-        {!!userFinals[0] ? (
+        <h3>Total Points: {globalPoints}</h3>
+        {finals !== 0 && (
           <div className="user-finals">
+            <div className="finals-title">
+              <h5>Finals Prediction:</h5>
+              {matches[0].status === 'Not Started' && (
+                <button className="edit" onClick={handleFinals}></button>
+              )}
+            </div>
             <p>
-              World Champion: <strong>{userFinals[0].winner}</strong>
+              World Champion: <strong>{finals.winner}</strong>
               <span className="champion" />
             </p>
             <p>
-              Second Place:<strong>{userFinals[0].looser}</strong>
+              Second Place:<strong>{finals.looser}</strong>
               <span className="second" />
             </p>
           </div>
-        ) : (
+        )}
+        {finals === 0 && matches[0].status === 'Not Started' && (
           <button onClick={handleFinals} className="predict-final">
             Predict Finals
           </button>
+        )}
+
+        {matches[0].status !== 'Not Started' && (
+          <p>
+            Finals predictions closed <span className="stop-icon" />
+          </p>
+        )}
+        {finalMatch.status !== 'Not Started' && (
+          <table className="points-table">
+            <thead>
+              <tr className="bg-blue">
+                <th>TF</th>
+                <th>SP</th>
+                <th>CH</th>
+              </tr>
+            </thead>
+            <tbody className="bg-grey">
+              <tr>
+                <td>{totalFinals.teamFinal}</td>
+                <td>{totalFinals.looser}</td>
+                <td>{totalFinals.winner}</td>
+              </tr>
+            </tbody>
+          </table>
         )}
       </div>
 
@@ -204,9 +281,6 @@ const Calculator = ({ props }) => {
               </div>
               {total[id] && (
                 <table className="points-table">
-                  {/* <caption className="bg-blue">
-                  Your points for this match
-                </caption> */}
                   <thead>
                     <tr className="bg-blue">
                       <th>MR</th>
@@ -252,6 +326,17 @@ const Calculator = ({ props }) => {
         <small>
           <strong>MT:</strong> Match Total{' '}
           <em>(total points for this match prediction.)</em>
+        </small>
+        <small>
+          <strong>TF:</strong> Team at the Final 20pts each.
+        </small>
+        <small>
+          <strong>SP:</strong> Second Place
+          <em>(same team loosing at the final.)</em> 50pts.
+        </small>
+        <small>
+          <strong>CH:</strong> Champion
+          <em>(same team winning the tournament.)</em> 100pts.
         </small>
       </div>
     </>

@@ -45,6 +45,7 @@ const Finals = (user) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addFinals({ userId, finals }));
+    dispatch(uiActions.toggleFinals());
   };
 
   return (

@@ -85,6 +85,23 @@ h4 {
 .user h3 {
   margin: 0;
 }
+.user p {
+  display: inline-flex;
+  margin: 0;
+}
+
+.user table {
+  width: 50%;
+}
+.stop-icon {
+  width: 1rem;
+  height: 1rem;
+  align-self: center;
+  margin-left: 0.5rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/stop.svg);
+}
 .user-name {
   display: flex;
   align-items: center;
@@ -130,4 +147,23 @@ h4 {
 
 .user-finals span {
   align-self: center;
+}
+
+.finals-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #213547;
+  color: #213547;
+  width: 100%;
+}
+
+.finals-title h5 {
+  margin: 0;
+}
+
+.finals-title button {
+  border: none;
+  width: 0.8rem;
+  height: 0.8rem;
 }

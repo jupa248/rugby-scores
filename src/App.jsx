@@ -26,6 +26,7 @@ function App() {
   const showFinals = useSelector((state) => state.ui.showFinals);
   const selectedMatch = useSelector((state) => state.ui.selectedMatch);
   const pageSection = useSelector((state) => state.ui.section);
+  const finals = useSelector((state) => state.scores.finals);
   const error = useSelector((state) => state.ui.error);
   const loading = useSelector((state) => state.ui.loading);
   const users = useSelector((state) => state.user);
@@ -49,16 +50,16 @@ function App() {
   useEffect(() => {
     dispatch(getFixtureData());
     console.log('fixtures rendered');
-    dispatch(getFinalsData(user?.userId));
-  }, [dispatch, user?.userId]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getScoresData());
     console.log('scores rendered');
   }, [dispatch]);
 
-  let scoresArray =
-    scores.scores !== 0 ? Object?.values(scores.scores) : 'no scores';
+  useEffect(() => {
+    dispatch(getFinalsData(user?.userId));
+  }, [dispatch, user?.userId]);
 
   let usersArray =
     users.user !== 'NO USERS' ? Object.values(users?.user) : 'no users';
@@ -97,7 +98,7 @@ function App() {
             );
           })}
         {pageSection === 'Predictions' && (
-          <Predictions props={{ userScores, matches }} />
+          <Predictions props={{ userScores, matches, finals }} />
         )}
       </main>
       {showPopup && <Login users={usersArray} />}

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   scores: {},
   points: [],
-  finals: [],
+  finals: {},
 };
 
 const scoresSlice = createSlice({
@@ -27,7 +27,7 @@ const scoresSlice = createSlice({
     },
     addFinals(state, action) {
       const { userId, finals } = action.payload;
-      state.finals = { ...state.finals, [userId]: { finals } };
+      state.finals = finals;
     },
     getFinals(state, action) {
       state.finals = action.payload;
