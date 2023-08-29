@@ -1,6 +1,3 @@
-import { useDispatch } from 'react-redux';
-import { uiActions } from '../../store/ui-slice';
-
 const Error = ({ err }) => {
   console.log(err);
   return (

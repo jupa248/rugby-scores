@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { dummyFixture } from './data/dummy-data';
-import { FIXTURES_URL } from './Models/config';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getScoresData, getFinalsData } from './store/scores-actions';
 import { getUserData } from './store/user-actions';
@@ -12,7 +9,6 @@ import NavBar from './components/NavBar';
 import Login from './components/Login';
 import { uiActions } from './store/ui-slice';
 import PredictionPopup from './components/PredictionPopup';
-import { scoresActions } from './store/scores-slice';
 import Predictions from './components/Predictions';
 import Spinner from './components/UI/Spinner';
 import Error from './components/UI/Error';
@@ -44,17 +40,14 @@ function App() {
         clearTimeout(timer);
       };
     }
-    console.log('userLogged rendered');
   }, [dispatch, userLogged]);
 
   useEffect(() => {
     dispatch(getFixtureData());
-    console.log('fixtures rendered');
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getScoresData());
-    console.log('scores rendered');
   }, [dispatch]);
 
   useEffect(() => {
@@ -111,16 +104,3 @@ function App() {
 }
 
 export default App;
-
-// let todaysDate = new Date().toISOString().split('T')[0];
-// const matches = dummyFixture.filter(
-//   (match) => match.date.split('T')[0] === todaysDate,
-// );
-// const postData = async (data) => {
-//   const response = await axios.put(FIXTURES_URL, data);
-//   if (response.statusText !== 'OK') {
-//     throw new Error('Could not add new data!');
-//   }
-//   console.log(response);
-// };
-// postData(dummyFixture);

@@ -1,12 +1,8 @@
-#root {
-  margin: 0 auto;
-  /* padding: 2rem; */
+main {
+  width: 100vw;
+  margin-top: 5.5rem;
   text-align: center;
 }
-
-/* .card {
-  padding: 2em;
-} */
 
 .read-the-docs {
   color: #888;
@@ -18,7 +14,6 @@
   align-items: center;
   margin-top: 4rem;
   gap: 1rem;
-  /* background-color: rebeccapurple; */
 }
 
 .error-icon {
@@ -34,5 +29,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
   }
 }

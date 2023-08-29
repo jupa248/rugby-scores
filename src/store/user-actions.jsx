@@ -32,7 +32,6 @@ export const addNewUser = (newUserData) => {
       if (response.statusText !== 'OK') {
         throw new Error('Sending user data failed.');
       }
-      // await dispatch(userActions.addUser(response.data));
       await dispatch(userActions.getUser(response.data));
     } catch (error) {
       console.error('Error adding new user', error);

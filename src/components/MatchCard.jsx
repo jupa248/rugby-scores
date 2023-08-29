@@ -17,16 +17,14 @@ const MatchCard = ({ props }) => {
   const parseHours = `${hour}:${minutes === 0 ? '00' : minutes}`;
 
   const handlePredictionPopup = (props) => {
-    // console.log('handle-props:', matchKey);
     dispatch(uiActions.togglePrediction(props));
   };
-  // console.log(scores);
+
   const handleScoreDelete = async (e) => {
     e.preventDefault();
     dispatch(deleteScore(key));
   };
-  // console.log(status);
-  // Object.entries(scores.scores).map((sc) => console.log(sc[1]));
+
   return (
     <article className="match-card">
       <div className="grid-container">
