@@ -1,6 +1,7 @@
 .finals-form {
   display: flex;
   justify-content: space-around;
+  gap: 0.5rem;
 }
 
 .finals-header {
@@ -32,6 +33,7 @@
   padding: 0.3rem 0.2rem;
   border-radius: 5px;
   border: 1px solid #38519f;
+  max-width: 40vw;
 }
 
 .champion {
