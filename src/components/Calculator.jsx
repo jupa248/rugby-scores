@@ -153,7 +153,7 @@ const Calculator = ({ props }) => {
 
   const totalPoints = calculateTotalPoints(total);
 
-  const finalMatch = matches.find((match) => match.id === 320752);
+  const finalMatch = matches.find((match) => match.id === 921139);
   if (finalMatch.home !== 'TBC' && finalMatch.home !== 'TBC') {
     calculateFinals(finalMatch, finals);
   }
@@ -217,7 +217,6 @@ const Calculator = ({ props }) => {
         )}
       </div>
 
-      <div className="references"></div>
       {userScores &&
         matches &&
         userScores.map((scores, index) => {
